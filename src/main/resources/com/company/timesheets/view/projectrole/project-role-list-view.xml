@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
       title="msg://projectRoleListView.title">
-<!--      focusComponent="nameFilterField">-->
+    <!--      focusComponent="nameFilterField">-->
     <data readOnly="true">
         <collection id="projectRolesDc"
                     class="com.company.timesheets.entity.ProjectRole">
@@ -17,7 +17,7 @@
         <dataLoadCoordinator auto="true"/>
         <urlQueryParameters>
             <pagination component="pagination"/>
-            <genericFilter component="genericFilter"/>
+            <!--            <genericFilter component="genericFilter"/>-->
         </urlQueryParameters>
     </facets>
     <actions>
@@ -25,10 +25,33 @@
         <action id="discardAction" type="lookup_discard"/>
     </actions>
     <layout>
-        <genericFilter id="genericFilter"
-                       dataLoader="projectRolesDl">
-            <properties include=".*"/>
-        </genericFilter>
+        <formLayout id="filtersForm">
+            <propertyFilter id="nameFilter"
+                            property="name"
+                            operation="CONTAINS"
+                            dataLoader="projectRolesDl"
+                            labelVisible="false">
+                <textField id="nameFilterField" placeholder="msg://nameFilterField.placeholder">
+                    <prefix>
+                        <icon icon="SEARCH"/>
+                    </prefix>
+                </textField>
+            </propertyFilter>
+            <propertyFilter id="typeFilter"
+                            property="type"
+                            operation="EQUAL"
+                            dataLoader="projectRolesDl"
+                            labelVisible="false">
+                <select id="typeFilterField"
+                        itemsEnum="com.company.timesheets.entity.ProjectRoleType"
+                        emptySelectionAllowed="true"
+                        placeholder="msg://typeFilterField.placeholder">
+                    <prefix>
+                        <icon icon="SEARCH"/>
+                    </prefix>
+                </select>
+            </propertyFilter>
+        </formLayout>
 
         <hbox id="buttonsPanel" classNames="buttons-panel">
             <button id="createBtn" action="projectRolesDataGrid.create"/>
