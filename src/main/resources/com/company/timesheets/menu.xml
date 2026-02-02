@@ -5,6 +5,9 @@
           title="msg://com.company.timesheets/menu_config.timesheets.title">
         <item view="ts_TimeEntry.my"
               title="msg://com.company.timesheets.view.mytimeentrylist/myTimeEntryListView.title"/>
+        <item view="ts_Task.my" description="msg://com.company.timesheets/menu_config.ts_Task.my.description"
+              title="msg://com.company.timesheets/menu_config.ts_Task.my.title"/>
+        <item view="ts_UiAsyncTasksView" title="msg://com.company.timesheets.view.uiasynctasks/uiAsyncTasksView.title"/>
     </menu>
     <menu opened="true" id="projects" description="msg://com.company.timesheets/menu_config.projects.description"
           title="msg://com.company.timesheets/menu_config.projects.title">
@@ -19,6 +22,16 @@
               title="msg://com.company.timesheets.view.projectrole/projectRoleListView.title"/>
     </menu>
     <menu opened="true" id="administration" title="msg://com.company.timesheets/menu.application.title">
+        <menu id="security" title="msg://com.company.timesheets/menu.security.title">
+            <item view="sec_ResourceRoleModel.list"
+                  title="msg://io.jmix.securityflowui.view.resourcerole/resourceRoleModelListView.menu"/>
+            <item view="sec_RowLevelRoleModel.list"
+                  title="msg://io.jmix.securityflowui.view.rowlevelrole/rowLevelRoleModelListView.menu"/>
+        </menu>
+        <menu id="datatools" title="msg://com.company.timesheets/menu.datatools.title">
+            <item view="datatl_entityInspectorListView"
+                  title="msg://io.jmix.datatoolsflowui.view.entityinspector/listTitle"/>
+        </menu>
         <item view="ts_User.list" title="msg://com.company.timesheets.view.user/UserListView.title"/>
     </menu>
 </menu-config>

@@ -13,6 +13,12 @@
     </data>
     <facets>
         <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+        <!--        <timer id="timer" delay="1000" autostart="true" repeating="true"/>-->
+<!--        <settings auto="true"/>-->
     </facets>
     <layout>
 
@@ -40,7 +46,6 @@
                 <column property="task"/>
                 <column property="spentTime" autoWidth="true" flexGrow="0"/>
                 <column property="status" autoWidth="true" flexGrow="0"/>
-                <column property="description" flexGrow="2"/>
                 <column property="rejectionReason" flexGrow="2"/>
             </columns>
         </dataGrid>

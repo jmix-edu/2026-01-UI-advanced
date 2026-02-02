@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://uiAsyncTasksView.title">
+    <layout>
+        <button id="woResultBtn" text="Perform without result"/>
+
+        <textField id="inputField" clearButtonVisible="true"/>
+        <button id="performChanges" text="Change this string"/>
+    </layout>
+</view>
