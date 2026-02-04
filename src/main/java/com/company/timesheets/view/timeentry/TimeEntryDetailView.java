@@ -1,11 +1,13 @@
 package com.company.timesheets.view.timeentry;
 
+import com.company.timesheets.app.TaskSupport;
 import com.company.timesheets.entity.Task;
 import com.company.timesheets.entity.TimeEntry;
 import com.company.timesheets.entity.TimeEntryStatus;
 import com.company.timesheets.entity.User;
 import com.company.timesheets.view.main.MainView;
 import com.company.timesheets.view.task.TaskLookupView;
+import com.vaadin.flow.data.provider.Query;
 import com.vaadin.flow.router.Route;
 import io.jmix.core.usersubstitution.CurrentUserSubstitution;
 import io.jmix.flowui.DialogWindows;
@@ -19,6 +21,7 @@ import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
+import java.util.stream.Stream;
 
 @Route(value = "time-entries/:id", layout = MainView.class)
 @ViewController("ts_TimeEntry.detail")
@@ -38,11 +41,13 @@ public class TimeEntryDetailView extends StandardDetailView<TimeEntry> {
     @Autowired
     private DialogWindows dialogWindows;
     @ViewComponent
-    private EntityPicker<User> userField;
+    private EntityComboBox<User> userField;
     
     public static final String PARAM_OWN_TIME_ENTRY = "ownTimeEntry";
     private boolean ownTimeEntry = false;
-    
+    @Autowired
+    private TaskSupport taskSupport;
+
     public void setOwnTimeEntry(boolean own) {
         this.ownTimeEntry = own;
     }
@@ -73,7 +78,7 @@ public class TimeEntryDetailView extends StandardDetailView<TimeEntry> {
         }
         if ("user".equals(event.getProperty())) {
             taskField.setReadOnly(getEditedEntity().getUser() == null);
-            loadTasks();
+            taskField.getDataProvider().refreshAll();
         }
         if (("task".equals(event.getProperty()) && !ownTimeEntry)) {
             userField.setReadOnly(getEditedEntity().getTask() != null);
@@ -122,9 +127,13 @@ public class TimeEntryDetailView extends StandardDetailView<TimeEntry> {
         dialogWindow.open();
     }
 
+    @Install(to = "taskField", subject = "itemsFetchCallback")
+    private Stream<Task> taskFieldItemsFetchCallback(final Query<Task, String> query) {
+        User user = getEditedEntity().getUser();
+        String filter = query.getFilter().orElse(null);
 
-
-    
-
-    
+        return user != null
+                ? taskSupport.getUserActiveTasks(user, query.getOffset(), query.getLimit(), filter)
+                : taskSupport.getActiveTasks(query.getOffset(), query.getLimit(), filter);
+    }
 }
