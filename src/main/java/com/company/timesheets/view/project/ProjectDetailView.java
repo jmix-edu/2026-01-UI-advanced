@@ -1,13 +1,26 @@
 package com.company.timesheets.view.project;
 
+import com.company.timesheets.entity.Client;
 import com.company.timesheets.entity.Project;
 import com.company.timesheets.entity.ProjectParticipant;
 import com.company.timesheets.entity.Task;
 import com.company.timesheets.view.main.MainView;
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.Text;
+import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
+import com.vaadin.flow.data.renderer.Renderer;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.streams.DownloadHandler;
+import com.vaadin.flow.server.streams.DownloadResponse;
+import com.vaadin.flow.theme.lumo.LumoUtility;
 import io.jmix.core.DataManager;
+import io.jmix.core.MetadataTools;
 import io.jmix.flowui.DialogWindows;
 import io.jmix.flowui.Notifications;
 import io.jmix.flowui.UiComponents;
@@ -19,6 +32,8 @@ import io.jmix.flowui.model.CollectionContainer;
 import io.jmix.flowui.model.CollectionLoader;
 import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.io.ByteArrayInputStream;
 
 @Route(value = "projects/:id", layout = MainView.class)
 @ViewController("ts_Project.detail")
@@ -43,6 +58,10 @@ public class ProjectDetailView extends StandardDetailView<Project> {
     private CollectionLoader<Task> tasksDl;
     @ViewComponent
     private CollectionLoader<ProjectParticipant> participantsDl;
+    @Autowired
+    private UiComponents uiComponents;
+    @Autowired
+    private MetadataTools metadataTools;
 
     @Subscribe("tabSheet")
     public void onTabSheetSelectedChange(final JmixTabSheet.SelectedChangeEvent event) {
@@ -133,8 +152,44 @@ public class ProjectDetailView extends StandardDetailView<Project> {
         notifications.show("tasksDc items: " + tasksDc.getItems().size());
         notifications.show("participantsDc items: " + participantsDc.getItems().size());
     }
-    
-    
+
+    @Supply(to = "clientField", subject = "renderer")
+    private Renderer<Client> clientFieldRenderer() {
+        return new ComponentRenderer<>(client -> {
+            FlexLayout wrapper = uiComponents.create(FlexLayout.class);
+            wrapper.setAlignItems(FlexComponent.Alignment.CENTER);
+            wrapper.addClassNames(LumoUtility.Gap.MEDIUM);
+
+            String clientName = metadataTools.getInstanceName(client);
+
+            wrapper.add(
+                    createAvatar(clientName, client.getImage(), "var(--lumo-size-xs)"),
+                    new Text(clientName)
+            );
+            return wrapper;
+        }); 
+    }
+
+    private Avatar createAvatar(String clientName, byte[] image, String size) {
+        Avatar avatar = uiComponents.create(Avatar.class);
+        avatar.setName(clientName);
+
+        if (image != null) {
+            DownloadHandler handler = DownloadHandler.fromInputStream(downloadEvent ->
+                    new DownloadResponse(
+                            new ByteArrayInputStream(image),
+                            "avatar.img",
+                            "application/octet-stream",
+                            image.length
+                    ));
+            avatar.setImageHandler(handler);
+        }
+
+        avatar.setWidth(size);
+        avatar.setHeight(size);
+
+        return avatar;
+    }
 
 
 //    @ViewComponent
