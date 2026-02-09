@@ -21,9 +21,18 @@ repositories {
         url = 'https://nexus.jmix.io/repository/public'
     }
     mavenLocal()
+    maven {
+        url = 'https://nexus.jmix.io/repository/premium'
+        credentials {
+            username = rootProject['premiumRepoUser']
+            password = rootProject['premiumRepoPass']
+        }
+    }
 }
 
 dependencies {
+    implementation 'io.jmix.tabbedmode:jmix-tabbedmode-flowui-starter'
+
     implementation 'com.company:reusable-theme:1.0-SNAPSHOT'
 
     implementation 'io.jmix.core:jmix-core-starter'

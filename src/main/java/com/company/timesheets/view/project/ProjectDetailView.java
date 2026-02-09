@@ -31,7 +31,9 @@ import io.jmix.flowui.kit.action.BaseAction;
 import io.jmix.flowui.model.CollectionContainer;
 import io.jmix.flowui.model.CollectionLoader;
 import io.jmix.flowui.view.*;
+import io.jmix.tabbedmode.event.UiRefreshEvent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.EventListener;
 
 import java.io.ByteArrayInputStream;
 
@@ -209,6 +211,11 @@ public class ProjectDetailView extends StandardDetailView<Project> {
 //    public void onAfterSave(final AfterSaveEvent event) {
 //        tasksWrapper.setEnabled(true);
 //    }
+
+    @EventListener
+    public void onPageRefresh(UiRefreshEvent event) {
+        getViewData().loadAll();
+    }
     
     
     

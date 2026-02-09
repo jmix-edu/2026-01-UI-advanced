@@ -19,6 +19,7 @@ import io.jmix.flowui.UiComponents;
 import io.jmix.flowui.app.main.StandardMainView;
 import io.jmix.flowui.component.main.JmixListMenu;
 import io.jmix.flowui.view.*;
+import io.jmix.tabbedmode.app.main.StandardTabbedModeMainView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,7 +27,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Route("")
 @ViewController(id = "ts_MainView")
 @ViewDescriptor(path = "main-view.xml")
-public class MainView extends StandardMainView {
+public class MainView extends StandardTabbedModeMainView {
 
     @Autowired
     private Messages messages;

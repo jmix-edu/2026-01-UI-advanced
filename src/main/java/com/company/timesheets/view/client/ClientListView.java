@@ -37,6 +37,7 @@ import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.model.CollectionContainer;
 import io.jmix.flowui.util.RemoveOperation;
 import io.jmix.flowui.view.*;
+import io.jmix.tabbedmode.view.TabbedModeViewProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 
@@ -50,6 +51,7 @@ import java.util.function.Function;
 @ViewController("ts_Client.list")
 @ViewDescriptor("client-list-view.xml")
 @DialogMode(width = "64em")
+@TabbedModeViewProperties(forceDialog = true)
 public class ClientListView extends StandardView {
     @Autowired
     private UiComponents uiComponents;

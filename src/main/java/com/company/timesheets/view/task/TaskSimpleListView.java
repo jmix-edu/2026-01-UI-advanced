@@ -4,6 +4,7 @@ import com.company.timesheets.entity.Task;
 import com.company.timesheets.view.main.MainView;
 import com.vaadin.flow.router.Route;
 import io.jmix.flowui.view.*;
+import io.jmix.tabbedmode.view.MultipleOpen;
 
 
 @Route(value = "tasks-simple", layout = MainView.class)

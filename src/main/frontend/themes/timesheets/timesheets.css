@@ -64,3 +64,7 @@ vaadin-grid::part(closed-project) {
 .footer-panel {
     background-color: var(--lumo-contrast-5pct);
 }
+
+html {
+  --jmix-tabmod-main-tab-text-max-width: 5em;
+}
