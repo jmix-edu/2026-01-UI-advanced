@@ -1,6 +1,8 @@
 package com.company.timesheets.view.uiasynctasks;
 
 
+import com.company.timesheets.ColorPicker;
+import com.company.timesheets.component.composite.ColorComponent;
 import com.company.timesheets.view.main.MainView;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.router.Route;
@@ -76,4 +78,18 @@ public class UiAsyncTasksView extends StandardView {
 
         return (input + "changed").toUpperCase();
     }
+
+    @Subscribe
+    public void onInit(final InitEvent event) {
+        ColorPicker colorPicker = new ColorPicker();
+        getContent().add(colorPicker);
+
+        colorPicker.addValueChangeListener(e ->
+                notifications.show("Selected color: " + e.getValue()));
+
+        ColorComponent colorComponent = new ColorComponent();
+        getContent().add(colorComponent);
+    }
+    
+    
 }
