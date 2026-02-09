@@ -24,6 +24,10 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    implementation 'org.springframework.cloud:spring-cloud-starter-vault-config:4.3.0'
+
     implementation 'com.company:reusable-theme:1.0-SNAPSHOT'
 
     implementation 'io.jmix.core:jmix-core-starter'
@@ -46,6 +50,14 @@ dependencies {
     }
     testImplementation 'io.jmix.flowui:jmix-flowui-test-assist'
     implementation 'org.postgresql:postgresql'
+
+
+//    implementation "org.springframework.boot:spring-boot-starter-undertow"
+//    modules {
+//        module("org.springframework.boot:spring-boot-starter-tomcat") {
+//            replacedBy("org.springframework.boot:spring-boot-starter-undertow", "Use Undertow instead of Apache Tomcat")
+//        }
+//    }
 }
 
 configurations.implementation {
