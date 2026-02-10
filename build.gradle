@@ -24,6 +24,8 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.hazelcast:hazelcast'
+
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
     implementation 'org.springframework.cloud:spring-cloud-starter-vault-config:4.3.0'
@@ -78,4 +80,13 @@ idea {
 
 vaadin {
     optimizeBundle = false
+}
+
+bootBuildImage {
+    builder = "paketobuildpacks/builder-jammy-full:latest"
+    imageName = "timesheets:boot"
+    environment = [
+            "BP_JVM_VERSION": "21",
+            "BP_JVM_DISTRO" : "temurin"
+    ]
 }
