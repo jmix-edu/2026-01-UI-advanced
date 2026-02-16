@@ -1,5 +1,6 @@
 package com.company.timesheets.view.main;
 
+import com.company.timesheets.component.slider.Slider;
 import com.company.timesheets.entity.TimeEntry;
 import com.company.timesheets.entity.User;
 import com.company.timesheets.event.TimeEntryStatusChangedEvent;
@@ -15,6 +16,7 @@ import io.jmix.core.LoadContext;
 import io.jmix.core.Messages;
 import io.jmix.core.Metadata;
 import io.jmix.core.usersubstitution.CurrentUserSubstitution;
+import io.jmix.flowui.Notifications;
 import io.jmix.flowui.UiComponents;
 import io.jmix.flowui.app.main.StandardMainView;
 import io.jmix.flowui.component.main.JmixListMenu;
@@ -40,6 +42,8 @@ public class MainView extends StandardMainView {
     private Metadata metadata;
     @ViewComponent
     private JmixListMenu menu;
+    @Autowired
+    private Notifications notifications;
 
     @Install(to = "userMenu", subject = "buttonRenderer")
     private Component userMenuButtonRenderer(final UserDetails userDetails) {
@@ -153,6 +157,11 @@ public class MainView extends StandardMainView {
             badge.getElement().getThemeList().add("badge error");
         }
         menu.getMenuItem("ts_TimeEntry.my").setSuffixComponent(badge);
+    }
+
+    @Subscribe("slider")
+    public void onSliderChange(Slider.SlideChangedEvent event) {
+        notifications.create("New value is: " + event.getValue()).show();
     }
 
     

@@ -8,6 +8,7 @@
         <item view="ts_Task.my" description="msg://com.company.timesheets/menu_config.ts_Task.my.description"
               title="msg://com.company.timesheets/menu_config.ts_Task.my.title"/>
         <item view="ts_UiAsyncTasksView" title="msg://com.company.timesheets.view.uiasynctasks/uiAsyncTasksView.title"/>
+        <item view="ts_PdfDemoView" title="msg://com.company.timesheets.view.pdfdemo/pdfDemoView.title"/>
     </menu>
     <menu opened="true" id="projects" description="msg://com.company.timesheets/menu_config.projects.description"
           title="msg://com.company.timesheets/menu_config.projects.title">

@@ -13,6 +13,10 @@
                               themeNames="contrast"
                               ariaLabel="msg://drawerToggle.ariaLabel"/>
                 <h1 id="viewTitle" classNames="jmix-main-view-title" width="100%"/>
+                <app:slider id="slider"
+                            width="15em"
+                            minHeight="1em"
+                            min="10" max="100" value="50"/>
                 <app:themeToggle id="themeToggle"/>
                 <userMenu id="userMenu"
                           themeNames="tertiary" classNames="ms-auto me-m">

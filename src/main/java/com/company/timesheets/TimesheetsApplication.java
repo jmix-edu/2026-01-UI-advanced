@@ -1,5 +1,7 @@
 package com.company.timesheets;
 
+import com.company.timesheets.component.slider.Slider;
+import com.company.timesheets.component.slider.SliderLoader;
 import com.company.timesheets.component.themetoggle.ThemeToggle;
 import com.company.timesheets.component.themetoggle.ThemeToggleLoader;
 import com.google.common.base.Strings;
@@ -63,6 +65,13 @@ public class TimesheetsApplication implements AppShellConfigurator {
     public ComponentRegistration themeToggle() {
         return ComponentRegistrationBuilder.create(ThemeToggle.class)
                 .withComponentLoader("themeToggle", ThemeToggleLoader.class)
+                .build();
+    }
+
+    @Bean
+    public ComponentRegistration slider() {
+        return ComponentRegistrationBuilder.create(Slider.class)
+                .withComponentLoader("slider", SliderLoader.class)
                 .build();
     }
 }
